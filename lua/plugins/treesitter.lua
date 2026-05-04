@@ -1,0 +1,52 @@
+-- [[ Treesitter Configuration ]]
+
+-- require('nvim-treesitter').setup {
+-- 	-- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+-- 	install_dir = vim.fn.stdpath('data') .. '/site',
+--
+-- 	highlight = {
+-- 		enable = true,
+-- 	},
+--
+-- 	auto_install = true,
+-- }
+--
+-- -- nvim-treesitter-textobjects
+-- require("nvim-treesitter-textobjects").setup {
+-- 	select = {
+-- 		lookahead = true,
+-- 		selection_modes = {
+-- 			['@parameter.outer'] = 'v', -- charwise
+-- 			['@function.outer'] = 'V', -- linewise
+-- 		},
+-- 		include_surrounding_whitespace = false,
+-- 	},
+-- }
+--
+-- -- treesitter-context
+-- local treesitter_context = require('treesitter-context')
+-- treesitter_context.setup({
+-- 	enable = true,
+-- })
+--
+-- -- Keymaps
+-- vim.keymap.set('n', 'jc', function()
+-- 	treesitter_context.go_to_context(vim.v.count1)
+-- end, { silent = true, desc = 'Jump to context' })
+--
+-- -- Treesitter Textobjects Keymaps
+-- vim.keymap.set({ "x", "o" }, "af", function()
+-- 	require "nvim-treesitter-textobjects.select".select_textobject("@function.outer", "textobjects")
+-- end, { desc = 'Select outer function' })
+-- vim.keymap.set({ "x", "o" }, "if", function()
+-- 	require "nvim-treesitter-textobjects.select".select_textobject("@function.inner", "textobjects")
+-- end, { desc = 'Select inner function' })
+-- vim.keymap.set({ "x", "o" }, "ac", function()
+-- 	require "nvim-treesitter-textobjects.select".select_textobject("@class.outer", "textobjects")
+-- end, { desc = 'Select outer class' })
+-- vim.keymap.set({ "x", "o" }, "ic", function()
+-- 	require "nvim-treesitter-textobjects.select".select_textobject("@class.inner", "textobjects")
+-- end, { desc = 'Select inner class' })
+-- vim.keymap.set({ "x", "o" }, "as", function()
+-- 	require "nvim-treesitter-textobjects.select".select_textobject("@local.scope", "locals")
+-- end, { desc = 'Select local scope' })
