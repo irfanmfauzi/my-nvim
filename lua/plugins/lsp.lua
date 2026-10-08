@@ -27,11 +27,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 		vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
 
-		-- Enable auto-completion.
-		if client:supports_method('textDocument/completion') then
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-
 		-- Inlay Hints
 		if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 			vim.keymap.set("n", '<leader>th', function()
@@ -55,11 +50,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Blink CMP
-require('blink.cmp').setup({
+local blink_cmp = require('blink.cmp')
+blink_cmp.setup({
+	fuzzy = {
+		implementation = 'prefer_rust',
+	},
 	sources = {
 		default = { 'lsp', 'path', 'buffer', 'snippets' },
+		providers = {
+			lsp = {
+				async = true,
+			},
+		},
 	},
 	completion = {
+		trigger = {
+			show_on_keyword = true,
+			show_on_trigger_character = true,
+			show_on_backspace = true,
+			show_on_backspace_in_keyword = true,
+		},
 		menu = {
 			draw = {
 				columns = {
@@ -67,6 +77,10 @@ require('blink.cmp').setup({
 					{ "kind_icon", gap = 3,     "kind" },
 				},
 			},
+		},
+		documentation = {
+			auto_show = true,
+			auto_show_delay_ms = 250,
 		},
 	},
 })
@@ -83,6 +97,7 @@ local server_settings = {
 			analyses = {
 				unusedparams = true,
 				unusedvariable = true,
+				unusedfunc = true,
 			},
 			hints = {
 				compositeLiteralTypes = true,
@@ -127,7 +142,8 @@ local server_settings = {
 				pyls_flake8 = { enabled = true }
 			}
 		}
-	}
+	},
+	ts_ls = {},
 }
 
 local on_init_servers = {
@@ -180,8 +196,18 @@ local on_init_servers = {
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+capabilities.textDocument.foldingRange = {
+	dynamicRegistration = false,
+	lineFoldingOnly = true
+}
+capabilities = blink_cmp.get_lsp_capabilities(capabilities)
 
+require('ufo').setup()
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 for server_name, v in pairs(server_settings) do
 	vim.lsp.config(server_name, {
 		on_init = on_init_servers[server_name],

@@ -86,6 +86,7 @@ vim.api.nvim_create_autocmd('FileType', {
 		if ok then
 			gopher.setup()
 			vim.keymap.set('n', '<leader>aj', '<cmd> GoTagAdd json <CR>')
+			vim.keymap.set('n', '<leader>ay', '<cmd> GoTagAdd yaml <CR>')
 			vim.keymap.set('n', '<leader>ad', '<cmd> GoTagAdd db <CR>')
 			vim.keymap.set('n', '<leader>ie', '<cmd> GoIfErr <CR>')
 		end

@@ -15,8 +15,8 @@ vim.pack.add {
 	'https://github.com/nvim-treesitter/nvim-treesitter',
 	'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
 	'https://github.com/folke/trouble.nvim',
-	'https://github.com/saghen/blink.lib',
-	'https://github.com/saghen/blink.cmp',
+	'https://github.com/rafamadriz/friendly-snippets',
+	{ src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.x') },
 	'https://github.com/tpope/vim-fugitive',
 	'https://github.com/mg979/vim-visual-multi',
 	'https://github.com/f-person/git-blame.nvim',
@@ -25,17 +25,21 @@ vim.pack.add {
 	'https://github.com/lewis6991/gitsigns.nvim',
 	'https://github.com/folke/zen-mode.nvim',
 	'https://github.com/nvim-treesitter/nvim-treesitter-context',
-	'https://github.com/ThePrimeagen/99',
+	'/Users/irfanmuhammadfauzi/.config/nvim/lua/local-plugins/99',
+	'https://github.com/kevinhwang91/promise-async',
+	'https://github.com/kevinhwang91/nvim-ufo',
+	'https://github.com/luukvbaal/statuscol.nvim'
 }
 
 -- Load plugin configurations
 require('plugins.ui')
-require('plugins.treesitter')
 require('plugins.telescope')
 require('plugins.harpoon')
 require('plugins.lsp')
 require('plugins.99')
 require('plugins.filetypes')
+require('plugins.statuscol')
+require('plugins.zenmode')
 
 -- Simple plugins that don't need much config
 require('Comment').setup()
